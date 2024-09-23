@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>name analy</title>
+    <style>
+        input{width: 30px;margin-left: 6px;border: 1px solid #000;text-align: center;}
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+    <div class="ttal" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%,-50%);">
+        <b>빈칸에 한자를 입력해주세요.</b>
+        <div class="name" style="display: flex;">
+            <div class="nom1" style="height: 100px;background-color: lightgreen;width: 50px;">
+                <input type="text" class="han1"></input>
+                <div class="nal1" style="text-align: center;"></div>
+            </div>
+            <div class="nom2" style="height: 100px;background-color: goldenrod;width: 50px;">
+                <input type="text" class="han2"></input>
+                <div class="nal2" style="text-align: center;"></div>
+            </div>
+            <div class="nom3" style="height: 100px;background-color: lightblue;width: 50px;">
+                <input type="text" class="han3"></input>
+                <div class="nal3" style="text-align: center;"></div>
+            </div>
+            <div class="nom4" style="height: 100px;background-color: pink;width: 50px;">
+                <input type="text" class="han4"></input>
+                <div class="nal4" style="text-align: center;"></div>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: center;margin-top: 10px;">
+            <button>anal</button>
+        </div>
+    </div>
+    <script>
+        function anal(a,b) {
+            fetch(`https://kanjiapi.dev/v1/kanji/${a}`).then(o=>o.json()).then(u=>{
+                if (u.stroke_count) {
+                    let hanz=u.stroke_count%10
+                    let kanz
+                    if (hanz==1||hanz==2)kanz='木'
+                    if (hanz==3||hanz==4)kanz='火'
+                    if (hanz==5||hanz==6)kanz='土'
+                    if (hanz==7||hanz==8)kanz='金'
+                    if (hanz==9||hanz==0)kanz='水'
+                    $(`.nal${b}`).html(`${u.stroke_count}<br>${kanz}<br>${u.stroke_count%2==1?'(+)':'(-)'}`)
+                }
+            })
+        }
+        $('button').click(()=>{
+            anal($('.han1').val(),1)
+            anal($('.han2').val(),2)
+            anal($('.han3').val(),3)
+            anal($('.han4').val(),4)
+        })
+    </script>
+</body>
+</html>
